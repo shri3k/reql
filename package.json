@@ -2,23 +2,33 @@
   "name": "reql",
   "version": "1.0.0",
   "description": "Like repl but requires packages before hand",
-	"keywords" :["cli", "repl", "tools"],
-  "main": "repl.js",
-	"global": true,
-	"preferGlobal": true,
-	"bin": {
-		"repl" : "./index.js"
-	},
+  "keywords": [
+    "cli",
+    "repl",
+    "tools"
+  ],
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": {
+    "reql": "./index"
+  },
   "scripts": {
     "test": "eslint index.js && NODE_ENV=test node test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shri3k/reql.git"
+  },
+  "bug": {
+    "url": "https://github.com/shri3k/reql/issues"
+  },
   "author": "Yojan Shrestha <thisisyojan@gmai.com>",
-	"license": "MIT",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "minimist": "^1.2.0"
   },
   "devDependencies": {
+    "eslint": "^2.12.0",
     "tape": "^4.5.1"
   }
 }
