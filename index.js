@@ -1,0 +1,95 @@
+/*
+ * Core deps
+ */
+var spawnSync = require('child_process').spawnSync;
+var repl = require('repl');
+var fs = require('fs');
+
+/*
+ * Mod deps
+ */
+var argv = require('minimist')(process.argv.slice(2));
+
+var filters = ['h', 'help', 'install'];
+var mod = isTest() ? module.exports : {};
+
+function isTest() {
+  return process.env.NODE_ENV === 'test';
+}
+
+var getopts = mod.getopts = function(argv, filter) {
+  var opts = Object.keys(argv).filter(function(arg) {
+    return !(filter.some(function(val) {
+      return arg == val;
+    }));
+  });
+  return opts.reduce(function(acc, opt) {
+    acc[opt] = argv[opt];
+    return acc;
+  }, {});
+};
+
+var assign = mod.assign = function(opts) {
+  return opts.reduce(function(acc, opt) {
+    acc[opt.replace('-', '_')] = opt;
+    return acc;
+  }, {});
+};
+
+var merge = mod.merge = function() {
+  var args = Array.prototype.slice.call(arguments);
+  return args.reduce(function(acc, arg) {
+    Object.keys(arg).forEach(function(ar) {
+      acc[ar] = arg[ar];
+      return acc;
+    });
+    return acc;
+  }, {});
+};
+
+function installAssign(varname, optsObj) {
+  try {
+    var install = spawnSync('npm', ['install', optsObj[varname]]);
+    console.log(install.output.toString()); // eslint-disable-line
+  } catch (e) {
+    console.log('Failed to install', e); // eslint-disable-line
+  }
+  global[varname] = require(optsObj[varname]);
+}
+
+function gAssign(varname, optsObj) {
+  global[varname] = require(optsObj[varname]);
+}
+
+function init(argv) {
+  // Grunt works
+  var hasInstall = Boolean(argv.install);
+  var optsObj = getopts(argv || [], filters);
+
+  var namedOptsObj = getopts(optsObj, ['_']);
+  var selfOptsObj = assign(optsObj._ || []);
+  optsObj = merge(selfOptsObj, namedOptsObj);
+
+  var ops = hasInstall ? installAssign : gAssign;
+
+  Object.keys(optsObj).forEach(function(key) {
+    ops(key, optsObj);
+  });
+  return true;
+}
+
+function choices(choice) {
+  /* eslint-disable */
+  switch (choice) {
+    case true:
+      fs.createReadStream('./README.md').pipe(process.stdout);
+      break;
+    default:
+      isTest() || (init(argv) && repl.start('>'));
+  }
+  /* eslint-enable */
+}
+
+(function run() {
+  choices(argv.h || argv.help);
+}());
