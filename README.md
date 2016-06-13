@@ -2,7 +2,8 @@
 
 ## Description:- 
 repl but you require modules before entering repl  
-_Primarily made this because I'm too lazy to create a new file just to test out a package_
+_Primarily made this because I'm too lazy to create a new file just to test out a package_  
+_Also, not to be confused with [ReQL](https://rethinkdb.com/docs/introduction-to-reql/)_
 
 ## Syntax:- 
 `reql [-h] || [--<variable_name> || -<variable_name>]=<package_name> || <package_name>  [--install]`

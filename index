@@ -6,6 +6,7 @@
 var spawnSync = require('child_process').spawnSync;
 var repl = require('repl');
 var fs = require('fs');
+var path= require('path');
 
 /*
  * Mod deps
@@ -84,7 +85,7 @@ function choices(choice) {
   /* eslint-disable */
   switch (choice) {
     case true:
-      fs.createReadStream('./README.md').pipe(process.stdout);
+      fs.createReadStream(path.resolve(__dirname,'./README.md')).pipe(process.stdout);
       break;
     default:
       isTest() || (init(argv) && repl.start('>'));
