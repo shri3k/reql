@@ -1,6 +1,6 @@
 {
   "name": "reql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Like repl but requires packages before hand",
   "keywords": [
     "cli",
