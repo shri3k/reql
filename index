@@ -57,11 +57,13 @@ function installAssign(varname, optsObj) {
   } catch (e) {
     console.log('Failed to install', e); // eslint-disable-line
   }
-  global[varname] = require(path.resolve(process.cwd(), 'node_modules', optsObj[varname]));
+	__dirname = process.cwd();
+  global[varname] = require(optsObj[varname]);
 }
 
 function gAssign(varname, optsObj) {
-  global[varname] = require(path.resolve(process.cwd(), 'node_modules', optsObj[varname]));
+	__dirname = process.cwd();
+  global[varname] = require(optsObj[varname]);
 }
 
 function init(argv) {
