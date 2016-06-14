@@ -12,7 +12,7 @@ _Also, not to be confused with [ReQL](https://rethinkdb.com/docs/introduction-to
 Displays the content of this file and exits
 
 ### `<package_name>:`
-Makes the package available in the repl with variable name as it's own name
+Makes the package available in the repl with variable name as it's own name.  
 Package name with containing `-` on their name is converted to `_` since `-` is not a proper identifier in JavaScript variables.
 
 ### `--<variable_name> || -<variable_name>`:-
@@ -27,6 +27,9 @@ when you install packages locally.
 ## Install:- 
 `npm install reql -g // can only be installed globally`
 
-## Usage
+## Usage:- 
 `reql -h`
 `reql -base=base64-url -min=minimist --install lodash`
+
+## Demo:-
+[![asciicast](https://asciinema.org/a/b8liwdvefkww370i275kmtlbu.png)](https://asciinema.org/a/b8liwdvefkww370i275kmtlbu)
